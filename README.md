@@ -10,7 +10,7 @@ To solve the task, proceed as follows:
 3. Make all necessary changes and commit
 4. Make a pull request for the original repo on GitHub
 5. Grade (1p) is awarded to students who:
-   -- who made the pull request with proper code
+   - who made the pull request with proper code
 
 # Business requirements
 
