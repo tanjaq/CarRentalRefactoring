@@ -16,10 +16,10 @@ const server = http.createServer(function(request, response) {
             const post = qs.parse(body)
             console.log(post);
             const result = rental.price(Number(post.age),
-            Number(post.licence), Number(post.clazz),
-            parseBool(post.acc),
-            parseBool(post.acc2),
-            parseBool(post.season))
+            Number(post.licence), Number(post.carClass),
+            parseBool(post.causedAccident),
+            parseBool(post.sufferedAccident),
+            parseBool(post.isHighSeason))
             console.log(result);
             response.writeHead(200, {'Content-Type': 'text/html'})
             response.end('Result: ' + result)
@@ -33,13 +33,13 @@ const server = http.createServer(function(request, response) {
                         <label for="html">Your age?</label><br>
                         <input type="number" name="licence" />
                         <label for="html">How long have you had your licence?</label><br>
-                        <input type="number" name="clazz" />
+                        <input type="number" name="carClass" />
                         <label for="html">Class of the car (1 to 5)</label><br>
-                        <input type=checkbox name="acc" />
+                        <input type=checkbox name="causedAccident" />
                         <label for="html">Have you caused accidents?</label><br>
-                        <input type=checkbox name="acc2" />
+                        <input type=checkbox name="sufferedAccident" />
                         <label for="html">Have you participated in any accidents?</label><br>
-                        <input type=checkbox name="season" />
+                        <input type=checkbox name="isHighSeason" />
                         <label for="html">Is it high season?</label><br>
                         <input type="submit" value="Add" />
                     </form>
