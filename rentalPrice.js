@@ -14,10 +14,10 @@ function price(age, licence, rentalClass, causedAccidents, participatedAccidents
     {
         return "Drivers 21 y/o or less can only rent Class 1 vehicles";
     }
-    var rentalprice = age;
+    var rentalPrice = age;
     if (rentalClass >= 4 && age <= 25 && highSeason === true)
     {
-      rentalprice *= 1.5;
+      rentalPrice *= 1.5;
     }
     if (licence < 1)
     {
@@ -25,19 +25,19 @@ function price(age, licence, rentalClass, causedAccidents, participatedAccidents
     }
     if (licence < 3)
     {
-      rentalprice *= 1.3;
+      rentalPrice *= 1.3;
     }
     if (causedAccidents == true && age < 30)
     {
-      rentalprice += 15;
+      rentalPrice += 15;
     }
-    if(rentalprice < age){
+    if(rentalPrice < age){
       return age;
     }
-    if (rentalprice > 1000)
+    if (rentalPrice > 1000)
     {
       return 1000.0;
     }
-    return rentalprice;
+    return rentalPrice;
 }
 exports.price = price;
