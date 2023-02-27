@@ -15,8 +15,9 @@ const server = http.createServer(function(request, response) {
         request.on('end', function() {
             const post = qs.parse(body)
             console.log(post);
-            const result = rental.price(Number(post.age),
-            Number(post.licence), Number(post.carClass),
+            const result = rental.price(Number(post.driverAge),
+            Number(post.licenceAge),
+            Number(post.carClass),
             parseBool(post.causedAccident),
             parseBool(post.sufferedAccident),
             parseBool(post.isHighSeason))
@@ -29,9 +30,9 @@ const server = http.createServer(function(request, response) {
             <html>
                 <body>
                     <form id="calcForm" method="post" action="http://localhost:3000">Driver: <br>
-                        <input type="number" name="age"/>
+                        <input type="number" name="driverAge"/>
                         <label for="html">Your age?</label><br>
-                        <input type="number" name="licence" />
+                        <input type="number" name="licenceAge" />
                         <label for="html">How long have you had your licence?</label><br>
                         <input type="number" name="carClass" />
                         <label for="html">Class of the car (1 to 5)</label><br>
