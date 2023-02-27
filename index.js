@@ -2,22 +2,22 @@ const http = require('http')
 const qs = require('querystring')
 const rental = require('./rentalPrice')
 
-const server = http.createServer(function(request, response) {
+const server = http.createServer(function (request, response) {
     console.dir(request.param)
 
     if (request.method == 'POST') {
         console.log('POST')
         var body = ''
-        request.on('data', function(data) {
+        request.on('data', function (data) {
             body += data
         })
 
-        request.on('end', function() {
+        request.on('end', function () {
             const post = qs.parse(body)
             console.log(post);
             const result = rental.price(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
             console.log(result);
-            response.writeHead(200, {'Content-Type': 'text/html'})
+            response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end('Result: ' + result)
         })
     } else {
@@ -41,7 +41,7 @@ const server = http.createServer(function(request, response) {
                     </form>
                 </body>
             </html>`
-        response.writeHead(200, {'Content-Type': 'text/html'})
+        response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end(html)
     }
 
