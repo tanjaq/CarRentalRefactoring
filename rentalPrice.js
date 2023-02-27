@@ -1,21 +1,21 @@
 // age - age of driver
 // licence - number of full years person holds driving licence
-// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-// acc - has s/he caused any accidents within last year
-// acc2 - has s/he participated (but not caused) in any accidents within last year
-// season - if it is high season or not
-function price(age, licence, clazz, acc, acc2, season) {
+// carClass - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
+// causedAccident - has s/he caused any accidents within last year
+// sufferedAccident - has s/he participated (but not caused) in any accidents within last year
+// isHighSeason - if it is high season or not
+function price(age, licence, carClass, causedAccident, sufferedAccident, isHighSeason) {
 
     if (age < 18)
     {
       return "Driver too young - cannot quote the price";
     }
-    if (age <= 21 && clazz > 2)
+    if (age <= 21 && carClass > 2)
     {
         return "Drivers 21 y/o or less can only rent Class 1 vehicles";
     }
     var rentalprice = age;
-    if (clazz >= 4 && age <= 25 && season !== false)
+    if (carClass >= 4 && age <= 25 && isHighSeason === true)
     {
       rentalprice = rentalprice * 2;
     }
@@ -27,7 +27,7 @@ function price(age, licence, clazz, acc, acc2, season) {
     {
       rentalprice = rentalprice * 1.3;
     }
-    if (acc == true && age < 30)
+    if (causedAccident == true && age < 30)
     {
       rentalprice = rentalprice + 15;
     }

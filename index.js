@@ -15,7 +15,11 @@ const server = http.createServer(function(request, response) {
         request.on('end', function() {
             const post = qs.parse(body)
             console.log(post);
-            const result = rental.price(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
+            const result = rental.price(Number(post.age),
+            Number(post.licence), Number(post.clazz),
+            parseBool(post.acc),
+            parseBool(post.acc2),
+            parseBool(post.season))
             console.log(result);
             response.writeHead(200, {'Content-Type': 'text/html'})
             response.end('Result: ' + result)
@@ -45,12 +49,12 @@ const server = http.createServer(function(request, response) {
         response.end(html)
     }
 
-    function parseBool(val) {
-        let updatedVal = false;
-        if (val == 'on') {
-            updatedVal = true;
+    function parseBool(value) {
+        let updatedValue = false;
+        if (value == 'on') {
+            updatedValue = true;
         }
-        return updatedVal;
+        return updatedValue;
     }
 })
 
