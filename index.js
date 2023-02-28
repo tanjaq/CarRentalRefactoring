@@ -3,26 +3,50 @@ const qs = require('querystring')
 //const rental = require('./rentalPrice')
 const rental = require('./rentalPriceTesting')
 
-const server = http.createServer(function(request, response) {
-    console.dir(request.param)
+const server = http.createServer(function (request, response) {
+  console.dir(request.param)
 
-    if (request.method == 'POST') {
-        console.log('POST')
-        var body = ''
-        request.on('data', function(data) {
-            body += data
-        })
+  if (request.method == 'POST') {
+    console.log('POST')
+    var body = ''
+    request.on('data', function (data) {
+      body += data
+    })
 
-        request.on('end', function() {
-            const post = qs.parse(body)
-            console.log(post);
-            const result = rental.calculateRentalPrice(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.hasCausedAccidents), parseBool(post.hasParticipatedInAccidents), parseBool(post.isHighSeason))
-            console.log(result);
-            response.writeHead(200, {'Content-Type': 'text/html'})
-            response.end('Result: ' + result.result.toString())
-        })
-    } else {
-      var html = `
+    request.on('end', function () {
+      const post = qs.parse(body)
+      console.log(post);
+      const result = rental.calculateRentalPrice(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.hasCausedAccidents), parseBool(post.hasParticipatedInAccidents), parseBool(post.isHighSeason))
+      console.log(result);
+      response.writeHead(200, { 'Content-Type': 'text/html' })
+      if (result.success) {
+        response.end(`
+          <html>
+            <body>
+              <h1>Rental price calculation result:</h1>
+              <p>Age: ${post.age}</p>
+              <p>Licence duration: ${post.licence}</p>
+              <p>Class of the car: ${post.clazz}</p>
+              <p>Have you caused accidents? ${post.hasCausedAccidents ? 'Yes' : 'No'}</p>
+              <p>Have you participated in accidents? ${post.hasParticipatedInAccidents ? 'Yes' : 'No'}</p>
+              <p>Is it high season? ${post.isHighSeason ? 'Yes' : 'No'}</p>
+              <h2>Rental price: $${result.result}</h2>
+            </body>
+          </html>
+        `)
+      } else {
+        response.end(`
+                <html>
+                  <body>
+                    <h1>Rental price calculation error:</h1>
+                    <p>${result.message}</p>
+                  </body>
+                </html>
+          `)
+      }
+    })
+  } else {
+    var html = `
       <html>
           <body>
               <form id="calcForm" method="post" action="http://localhost:3001">
@@ -43,17 +67,17 @@ const server = http.createServer(function(request, response) {
               </form>
           </body>
       </html>`
-        response.writeHead(200, {'Content-Type': 'text/html'})
-        response.end(html)
-    }
+    response.writeHead(200, { 'Content-Type': 'text/html' })
+    response.end(html)
+  }
 
-    function parseBool(val) {
-        let updatedVal = false;
-        if (val == 'on') {
-            updatedVal = true;
-        }
-        return updatedVal;
+  function parseBool(val) {
+    let updatedVal = false;
+    if (val == 'on') {
+      updatedVal = true;
     }
+    return updatedVal;
+  }
 })
 
 const port = 3001
