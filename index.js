@@ -85,6 +85,8 @@ const host = 'localhost'
 server.listen(port, host)
 console.log(`Listening at http://${host}:${port}`)
 //return; */
+
+// Separate calculaterentalPrice(post) and respondWithResult
 const http = require('http')
 const qs = require('querystring')
 const rental = require('./rentalPriceTesting')
@@ -172,10 +174,10 @@ const server = http.createServer(function (request, response) {
             </body>
             </html>
             `)
-            }
-            }
-            })
-        
-        server.listen(3001)
-        
-        console.log('Server running at http://localhost:3001/')
+    }
+  }
+})
+
+server.listen(3001)
+
+console.log('Server running at http://localhost:3001/')
