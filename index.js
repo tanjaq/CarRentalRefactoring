@@ -1,6 +1,7 @@
 const http = require('http')
 const qs = require('querystring')
-const rental = require('./rentalPrice')
+//const rental = require('./rentalPrice')
+const rental = require('./rentalPriceTesting')
 
 const server = http.createServer(function(request, response) {
     console.dir(request.param)

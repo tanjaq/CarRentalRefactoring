@@ -10,32 +10,23 @@ function calculateRentalPrice(age, licence, clazz, hasCausedAccidents, hasPartic
   }
 
   if (isHighSeasonPriceApplicable(age, clazz, isHighSeason)) {
-    rentalPrice = rentalPrice * 2;
+    rentalPrice = applyHighSeasonPrice(rentalPrice);
   }
 
   if (isLicenceDurationNotEnough(licence)) {
     return { success: false, message: "Driver must hold driving licence at least for one year. Can not rent a car!" };
   }
 
-  if (isLicenceDurationLessThanThreeYears(licence)) {
-    rentalPrice = rentalPrice * 1.3;
-  }
+  rentalPrice = applyLicenceDurationDiscount(rentalPrice, licence);
 
-  if (hasCausedAccidentsForYoungDriver(age, hasCausedAccidents)) {
-    rentalPrice = rentalPrice + 15;
-  }
+  rentalPrice = applyAccidentSurcharge(rentalPrice, age, hasCausedAccidents, hasParticipatedInAccidents);
 
-  if (isRentalPriceExceededMaxValue(rentalPrice)) {
-    rentalPrice = 1000.0;
-  }
-  if(hasParticipatedInAccidentsForOlderDriver(age, hasParticipatedInAccidents)){
-    rentalPrice -= 10;
-  }
+  rentalPrice = applyRentalPriceLimit(rentalPrice);
 
   return { success: true, message: "Success", result: rentalPrice };
 }
 
-// All functions
+// Age functions
 function isDriverTooYoung(age) {
   return age < 18;
 }
@@ -48,6 +39,11 @@ function isHighSeasonPriceApplicable(age, clazz, isHighSeason) {
   return clazz >= 4 && age <= 25 && isHighSeason;
 }
 
+function applyHighSeasonPrice(rentalPrice) {
+  return rentalPrice * 2;
+}
+
+// Licence functions
 function isLicenceDurationNotEnough(licence) {
   return licence < 1;
 }
@@ -56,20 +52,42 @@ function isLicenceDurationLessThanThreeYears(licence) {
   return licence < 3;
 }
 
+function applyLicenceDurationDiscount(rentalPrice, licence) {
+  if (isLicenceDurationLessThanThreeYears(licence)) {
+    return rentalPrice * 1.3;
+  }
+  return rentalPrice;
+}
+
+// Accident functions
 function hasCausedAccidentsForYoungDriver(age, hasCausedAccidents) {
   return hasCausedAccidents && age < 30;
 }
 
-function isRentalPriceExceededMaxValue(rentalPrice) {
-  return rentalPrice > 1000;
-}
-function hasParticipatedInAccidentsF(age, hasParticipatedInAccidents)
-{
+function hasParticipatedInAccidentsF(age, hasParticipatedInAccidents) {
   return hasParticipatedInAccidents && age > 30;
 }
 
-module.exports = { calculateRentalPrice };
+function applyAccidentSurcharge(rentalPrice, age, hasCausedAccidents, hasParticipatedInAccidents) {
+  if (hasCausedAccidentsForYoungDriver(age, hasCausedAccidents)) {
+    return rentalPrice + 15;
+  }
+  if (hasParticipatedInAccidentsF(age, hasParticipatedInAccidents)) {
+    return rentalPrice - 10;
+  }
+  return rentalPrice;
+}
 
-/* if (hasParticipatedInAccidents) {
-  rentalPrice += 10;
-} */
+// Rental price limit
+function isRentalPriceExceededMaxValue(rentalPrice) {
+  return rentalPrice > 1000;
+}
+
+function applyRentalPriceLimit(rentalPrice) {
+  if (isRentalPriceExceededMaxValue(rentalPrice)) {
+    return 1000;
+  }
+  return rentalPrice;
+}
+
+module.exports = { calculateRentalPrice };
