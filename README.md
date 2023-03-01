@@ -27,7 +27,7 @@ The maximum rental price is 1000 euros per day.
 
 The minimum rental price is equal to the age of the driver.
 
-In classes 4 and 5, the price is 50% more expensive if the driver is 25 years old or younger (except in low season).
+In classes 4 and 5, the price is 50% more expensive if the driver is 25 years old or younger (except in low isSeason).
 
 Persons who have held their driver's license for less than a year cannot rent. If the driver's license has been held for less than three years, the rental price is 30% higher.
 
