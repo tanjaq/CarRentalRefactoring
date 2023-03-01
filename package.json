@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tanjaq/CarRentalRefactoring.git"
+    "url": "git+https://github.com/ImAMLazy/CarRentalRefactoring.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tanjaq/CarRentalRefactoring/issues"
+    "url": "https://github.com/ImAMLazy/CarRentalRefactoring.git/issues"
   },
-  "homepage": "https://github.com/tanjaq/CarRentalRefactoring#readme"
+  "homepage": "https://github.com/ImAMLazy/CarRentalRefactoring.git#readme"
 }
