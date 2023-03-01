@@ -1,0 +1,20 @@
+{
+  "name": "carrentalrefactoring",
+  "version": "1.0.0",
+  "description": "The task is to refactor the program code so that it meets clean code standards and follows all business requirements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanjaq/CarRentalRefactoring.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tanjaq/CarRentalRefactoring/issues"
+  },
+  "homepage": "https://github.com/tanjaq/CarRentalRefactoring#readme"
+}
