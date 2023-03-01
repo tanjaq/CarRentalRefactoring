@@ -1,40 +1,48 @@
-// age - age of driver
-// licence - number of full years person holds driving licence
-// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-// acc - has s/he caused any accidents within last year
-// acc2 - has s/he participated (but not caused) in any accidents within last year
-// season - if it is high season or not
-function price(age, licence, clazz, acc, acc2, season) {
+// driverAge - The driverAge of the driver.return
+// licenceRetention - The number of full years the person has held a driving licenceRetention.
+// carClass - The class of the car from 1 (smallest) to 5 (largest) that person wishes to rent.
+// hasAccident - has s/he caused any accidents within last year
+// hasParticipatedInAccident - Whether the driver has participated (but not caused) in any accidents within the last year.
+// isHighSeason - Whether it is high isHighSeason or not.
+function price(driverAge, licenceRetention, carClass, hasAccident, hasParticipatedInAccident, isHighSeason) {
+  
+  let rentalprice = driverAge;
 
-    if (age < 18)
+    if (driverAge < 18)
     {
       return "Driver too young - cannot quote the price";
     }
-    if (age <= 21 && clazz > 2)
+
+    if (driverAge <= 21 && carClass > 2)
     {
         return "Drivers 21 y/o or less can only rent Class 1 vehicles";
     }
-    var rentalprice = age;
-    if (clazz >= 4 && age <= 25 && season !== false)
+
+    if (carClass>= 4 && driverAge <= 25 && isHighSeason !== false)
     {
       rentalprice = rentalprice * 2;
     }
-    if (licence < 1)
+
+    if (licenceRetention < 1)
     {
-        return "Driver must hold driving licence at least for one year. Can not rent a car!";
+        return "Driver must hold driving licenceRetention at least for one year. Can not rent a car!";
     }
-    if (licence < 3)
+
+    if (licenceRetention < 3)
     {
       rentalprice = rentalprice * 1.3;
     }
-    if (acc == true && age < 30)
+
+    if (hasAccident == true && carClass < 30)
     {
       rentalprice = rentalprice + 15;
     }
+
     if (rentalprice > 1000)
     {
       return 1000.0;
     }
+    
     return rentalprice;
 }
 exports.price = price;
