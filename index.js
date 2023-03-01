@@ -104,7 +104,7 @@ const server = http.createServer(function (request, response) {
     request.on('end', function () {
       const post = qs.parse(body)
       console.log(post);
-      const rentalPrice = calculateRentalPrice(post)
+      const rentalPrice = rental.calcPriceForRent(post)
       respondWithResult(response, post, rentalPrice)
     })
   } else {
@@ -137,8 +137,9 @@ const server = http.createServer(function (request, response) {
     return val === 'on'
   }
 
-  function calculateRentalPrice(post) {
-    return rental.calculateRentalPrice(
+  function calcPriceForRent(post) 
+  {
+    return rental.calcPriceForRent(
       Number(post.age),
       Number(post.licence),
       Number(post.clazz),

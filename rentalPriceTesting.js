@@ -1,5 +1,5 @@
-function calculateRentalPrice(age, licence, clazz, hasCausedAccidents, hasParticipatedInAccidents, isHighSeason) {
-  let rentalPrice = age;
+function calcPriceForRent(age, licence, clazz, hasCausedAccidents, hasParticipatedInAccidents, isHighSeason) {
+  let rentalPrice = age.Number;
 
   if (isDriverTooYoung(age)) {
     return { success: false, message: "Driver too young - cannot quote the price" };
@@ -28,15 +28,18 @@ function calculateRentalPrice(age, licence, clazz, hasCausedAccidents, hasPartic
 
 // Age functions
 function isDriverTooYoung(age) {
-  return age < 18;
+  /* if (typeof age !== 'number') {
+    throw new Error('Invalid input type: age must be a number')
+  } */
+  return age.Number < 18;
 }
 
 function isClassRestrictedForYoungDrivers(age, clazz) {
-  return age <= 21 && clazz > 2;
+  return age.Number <= 21 && clazz > 2;
 }
 
 function isHighSeasonPriceApplicable(age, clazz, isHighSeason) {
-  return clazz >= 4 && age <= 25 && isHighSeason;
+  return clazz >= 4 && age.Number <= 25 && isHighSeason;
 }
 
 function applyHighSeasonPrice(rentalPrice) {
@@ -90,7 +93,7 @@ function applyRentalPriceLimit(rentalPrice) {
   return rentalPrice;
 }
 
-module.exports = { calculateRentalPrice };
+module.exports = { calcPriceForRent };
 
 // Better version of object orienting programming
 /* 
