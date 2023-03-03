@@ -1,33 +1,52 @@
-// driversAge - age of driver
-// yearsOfExperience - number of full years person holds driving licence
-// carType - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
-// causedAnAccident - has s/he caused any accidents within last year
-// includedInAccident - has s/he participated (but not caused) in any accidents within last year
-// isSeason - if it service is demanded or not
-function price(driversAge, yearsOfExperience, carType, causedAnAccident, wasInAccident, isSeason) {
-  var rentalPrice = driversAge;
+function calculateRentalPrice(driversAge, yearsOfExperience, carType, causedAnAccident, isSeason) {
+  const causedAccident = 15;
+  
+  let rentalPrice = CalculateFromAge(driversAge, carType, isSeason)
+  rentalPrice = CalculateFromExperience(yearsOfExperience, rentalPrice)
+  rentalPrice = funct2(causedAnAccident, driversAge, rentalPrice)
+  rentalPrice = funct1(rentalPrice)
 
+  return rentalPrice;
+}
+
+exports.calculateRentalPrice = calculateRentalPrice
+
+function funct1(rentalPrice) {
+  const maxPrice = 1000
+  if (rentalPrice > maxPrice) {
+    rentalPrice = maxPrice;
+  }
+  return rentalPrice
+}
+function funct2(causedAnAccident, driversAge, rentalPrice) {
+  if (causedAnAccident && driversAge < 30) {
+    rentalPrice += causedAccident;
+  }
+  return rentalPrice
+}
+
+function CalculateFromExperience(yearsOfExperience, rentalPrice) {
+  if (yearsOfExperience < 1) {
+    return "Driver must hold driving licence for at least one year. Cannot rent a car!";
+  }
+  if (yearsOfExperience < 3) {
+    rentalPrice *= 1.3;
+  }
+  return rentalPrice
+}
+
+function CalculateFromAge(driversAge, carType, isSeason) {
+  let rentalPrice = driversAge;
   if (driversAge < 18) {
     return "Driver too young - cannot quote the price";
   }
-  if (driversAge <= 21 && carType > 2) {
+  if (driversAge <= 21 && carType > 1) {
     return "Drivers 21 y/o or less can only rent Class 1 vehicles";
   }
-  if (carType >= 4 && driversAge <= 25 && isSeason !== false) {
-    rentalPrice = rentalPrice * 2;
+  if (carType >= 4 && driversAge <= 25 && isSeason) {
+    rentalPrice *= 1.5;
   }
-  if (yearsOfExperience < 1) {
-    return "Driver must hold driving licence at least for one year. Can not rent a car!";
-  }
-  if (yearsOfExperience < 3) {
-    rentalPrice = rentalPrice * 1.3;
-  }
-  if (causedAnAccident == true && driversAge < 30) {
-    rentalPrice = rentalPrice + 15;
-  }
-  if (rentalPrice > 1000) {
-    return 1000.0;
-  }
-  return rentalPrice;
+
+  return rentalPrice
 }
-exports.price = price;
+

@@ -1,6 +1,6 @@
 const http = require('http')
 const qs = require('querystring')
-const rental = require('./rentalPrice')
+const rental = require('./rentalPrice.js')
 
 const server = http.createServer(function(request, response) {
     console.dir(request.param)
@@ -15,7 +15,7 @@ const server = http.createServer(function(request, response) {
         request.on('end', function() {
             const post = qs.parse(body)
             console.log(post);
-            const result = rental.price(Number(post.driversAge), Number(post.yearsOfExperience), Number(post.carType), parseBool(post.causedAnAccident), parseBool(post.wasInAccident), parseBool(post.isSeason))
+            const result = rental.calculateRentalPrice(Number(post.driversAge), Number(post.yearsOfExperience), Number(post.carType), parseBool(post.causedAnAccident), parseBool(post.isSeason))
             console.log(result);
             response.writeHead(200, {'Content-Type': 'text/html'})
             response.end('Result: ' + result)
@@ -33,8 +33,7 @@ const server = http.createServer(function(request, response) {
                         <label for="html">Class of the car (1 to 5)</label><br>
                         <input type=checkbox name="causedAnAccident" />
                         <label for="html">Have you caused accidents?</label><br>
-                        <input type=checkbox name="wasInAccident" />
-                        <label for="html">Have you participated in any accidents?</label><br>
+                        
                         <input type=checkbox name="isSeason" />
                         <label for="html">Is it high isSeason?</label><br>
                         <input type="submit" value="Add" />
