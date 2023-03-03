@@ -33,8 +33,6 @@ const server = http.createServer(function(request, response) {
                         <label for="html">Class of the car (1 to 5)</label><br>
                         <input type=checkbox name="hasAccident" />
                         <label for="html">Have you caused accidents?</label><br>
-                        <input type=checkbox name="hasParticipatedInAccident" />
-                        <label for="html">Have you participated in any accidents?</label><br>
                         <input type=checkbox name="isHighSeason" />
                         <label for="html">Is it high isHighSeason?</label><br>
                         <input type="submit" value="Add" />
