@@ -21,7 +21,7 @@ const server = http.createServer(function(request, response) {
             console.log(post.acc);
             console.log(post.acc2);
             console.log(post.season);
-            const result = rental.price(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
+            const result = rental.priceCalc.price(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
             console.log(result);
             response.writeHead(200, {'Content-Type': 'text/html'})
             response.end('Result: ' + result)

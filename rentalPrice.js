@@ -8,52 +8,99 @@
 class PriceCalculator
 {
   constructor() { }
+  
+  //throw
+  price(ageOfDriver, yeasrOfDrivingLicence, classOfCar, hasAccidents, acc2, nowIsSeason) 
+  {
+    this.error = [ 0, '' ];
+    
+    this.ageOfDriver = ageOfDriver;
+    this.yeasrOfDrivingLicence = yeasrOfDrivingLicence; 
+    this.classOfCar = classOfCar;
+    this.hasAccidents = hasAccidents;
+    this.nowIsSeason = nowIsSeason;
+
+    // true value check
+    this.ageIsIntAndLessThan121();
+    this.licenceIsPositiveNumber();
+    this.classOfCarIsTrue();
+    this.hasAccidentsIsBool();
+    this.isSeasonIsBool();
+    
+    if(this.error[0] == 1)
+    {
+      return this.error[1];
+    }
+
+    this.rentalprice = ageOfDriver;
+
+
+    
+    this.checkOnAgeErrors();
+    if(this.error[0] == 1)
+    {
+      return this.error[1];
+    }
+
+    this.checkOnDoubleRental();
+    this.licenceHasMoreThanOneYear();
+    if(this.error[0] == 1)
+    {
+      return this.error[1];
+    }
+
+    this.licenceHasMoreThanThreeYears();
+    this.DriverHasntAccidents();
+    this.rentalPriceMoreThanThousand();
+    return this.rentalprice;
+  }
+  
   //check varibable on true value
   ageIsIntAndLessThan121()
   {
-    if(isNaN(ageOfDriver) || ageOfDriver > 120 || ageOfDriver < 0)
+    if(isNaN(this.ageOfDriver) || this.ageOfDriver > 120 || this.ageOfDriver < 0)
     {
-        error = [ 1, 'Age should be a number that less than 120 and more than 0' ];
+        this.error = [ 1, 'Age should be a number that less than 120 and more than 0' ];
     }
   }
 
   licenceIsPositiveNumber()
   {
-    if(isNaN(yeasrOfDrivingLicence) || yeasrOfDrivingLicence < 0)
+    if(isNaN(this.yeasrOfDrivingLicence) || this.yeasrOfDrivingLicence < 0)
     {
-      error = [ 1, 'License should be a positive number' ];
+      this.error = [ 1, 'License should be a positive number' ];
     }
   }
   
   classOfCarIsTrue()
   {
-    if(isNaN(classOfCar) || classOfCar < 0 || classOfCar > 5)
+    if(isNaN(this.classOfCar) || this.classOfCar < 0 || this.classOfCar > 5)
     {
-      error = [ 1, 'Class of car should be a number from 1 to 5' ];
+      this.error = [ 1, 'Class of car should be a number from 1 to 5' ];
     }
   }
 
   hasAccidentsIsBool()
   {
-    if(hasAccidents != underfined)
+    if(this.hasAccidents != undefined)
     {
-      hasAccidents = true;
+      this.hasAccidents = true;
     }
     else
     {
-      hasAccidents = false;
+      this.hasAccidents = false;
     }
   }
 
   isSeasonIsBool()
   {
-    if(nowIsSeason != underfined)
+    if(this.nowIsSeason != this.undefined)
     {
-      nowIsSeason = true;
+      this.nowIsSeason = true;
     }
     else
     {
-      nowIsSeason = false;
+      this.nowIsSeason = false;
     }
   }
 
@@ -67,12 +114,12 @@ class PriceCalculator
   checkOnAgeErrors()
   {
     
-    if (ageOfDriver < 18)
+    if (this.ageOfDriver < 18)
     {
       return "Driver too young - cannot quote the price";
     }
     
-    let driverCantRentHisClassOfCar = ageOfDriver <= 21 && classOfCar > 2; 
+    let driverCantRentHisClassOfCar = this.ageOfDriver <= 21 && this.classOfCar > 2; 
 
     if (driverCantRentHisClassOfCar)
     {
@@ -83,15 +130,15 @@ class PriceCalculator
 
   checkOnDoubleRental()
   {
-    let MoreExpensveRent = classOfCar >= 4 && ageOfDriver <= 25 && nowIsSeason !== false;
+    let MoreExpensveRent = this.classOfCar >= 4 && this.ageOfDriver <= 25 && this.nowIsSeason !== false;
     if (MoreExpensveRent)
     {
-      rentalprice = rentalprice * 2;
+      this.rentalprice = this.rentalprice * 2;
     }
   }
   licenceHasMoreThanOneYear()
   {
-    if (yeasrOfDrivingLicence < 1)
+    if (this.yeasrOfDrivingLicence < 1)
     {
       return "Driver must hold driving licence at least for one year. Can not rent a car!";
     }
@@ -99,79 +146,35 @@ class PriceCalculator
 
   licenceHasMoreThanThreeYears()
   {
-    if (yeasrOfDrivingLicence < 3)
+    if (this.yeasrOfDrivingLicence < 3)
     {
-      rentalprice = rentalprice * 1.3;
+      this.rentalprice = this.rentalprice * 1.3;
     }
   }
 
 
  DriverHasntAccidents()
   {
-    let driverHasAccidents = hasAccidents == true && ageOfDriver < 30;
+    let driverHasAccidents = this.hasAccidents == true && this.ageOfDriver < 30;
     if (driverHasAccidents)
     {
-      rentalprice = rentalprice + 15;
+      this.rentalprice = this.rentalprice + 15;
     }
   }
 
 
   rentalPriceMoreThanThousand()
   {
-    if (rentalprice > 1000)
+    if (this.rentalprice > 1000)
     {
-      rentalprice = 1000;
+      this.rentalprice = 1000;
       //return 1000.0;
     }
   }
 
 
-  //throw
-  price(ageOfDriver, yeasrOfDrivingLicence, classOfCar, hasAccidents, acc2, nowIsSeason) 
-  {
-    error = [ 0, '' ];
-    
-    ageOfDriver = ageOfDriver;
-    yeasrOfDrivingLicence = yeasrOfDrivingLicence; 
-    classOfCar = classOfCar;
-    hasAccidents = hasAccidents;
-    nowIsSeason = nowIsSeason;
-
-    // true value check
-    ageIsIntAndLessThan121();
-    licenceIsPositiveNumber();
-    classOfCarIsTrue();
-    hasAccidentsIsBool();
-    isSeasonIsBool();
-    
-    if(error[0] == 1)
-    {
-      return error[1];
-    }
-
-    rentalprice = ageOfDriver;
-
-
-    
-    checkOnAgeErrors(ageOfDriver, classOfCar);
-    if(error[0] == 1)
-    {
-      return error[1];
-    }
-
-    checkOnDoubleRental(rentalprice, ageOfDriver, classOfCar, nowIsSeason);
-    licenceHasMoreThanOneYear(yeasrOfDrivingLicence);
-    if(error[0] == 1)
-    {
-      return error[1];
-    }
-
-    licenceHasMoreThanThreeYears(rentalprice, yeasrOfDrivingLicence);
-    DriverHasntAccidents(rentalprice, hasAccidents, ageOfDriver);
-    rentalPriceMoreThanThousand(rentalprice);
-    return rentalprice;
-  }
+  
 }
 
-let price = new PriceCalculator(); // it didnt will work with base index.js
-exports.price = price;
+let priceCalc = new PriceCalculator(); // it didnt will work with base index.js
+exports.priceCalc = priceCalc;
