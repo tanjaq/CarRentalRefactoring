@@ -1,13 +1,13 @@
 const http = require('http');
 const qs = require('querystring');
-const { calculateRentalPrice }  = require('./rentalPrice');
+const {calculateRentalPrice} = require('./rentalPrice');
 
 const server = http.createServer(function(request, response) {
   console.dir(request.param);
 
   if (request.method == 'POST') {
     console.log('POST');
-    var body = '';
+    let body = '';
     request.on('data', function(data) {
       body += data;
     });
@@ -15,13 +15,19 @@ const server = http.createServer(function(request, response) {
     request.on('end', function() {
       const post = qs.parse(body);
       console.log(post);
-      const result = calculateRentalPrice(Number(post.driverAge), Number(post.driverLicenseYears), Number(post.carClass), post.recentAccidents === 'true', post.isHighSeason === 'true');
+      const result = calculateRentalPrice(
+        Number(post.driverAge),
+        Number(post.driverLicenseYears),
+        Number(post.carClass),
+        post.recentAccidents === 'true',
+        post.isHighSeason === 'true'
+      );
       console.log(result);
       response.writeHead(200, {'Content-Type': 'text/html'});
       response.end('Result: ' + result);
     });
   } else {
-    var html = `
+    const html = `
       <html>
         <body>
           <form id="calcForm" method="post" action="http://localhost:3000">Driver: <br>

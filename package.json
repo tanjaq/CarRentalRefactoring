@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/AhmadMuhhamedsin/CarRentalRefactoring/issues"
   },
-  "homepage": "https://github.com/AhmadMuhhamedsin/CarRentalRefactoring#readme"
+  "homepage": "https://github.com/AhmadMuhhamedsin/CarRentalRefactoring#readme",
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-google": "^0.14.0"
+  }
 }

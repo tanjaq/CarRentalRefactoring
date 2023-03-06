@@ -1,11 +1,14 @@
-
-
-function calculateRentalPrice(driverAge, driverLicenseYears, carClass, recentAccidents, isHighSeason) {
-  
+function calculateRentalPrice(
+  driverAge,
+  driverLicenseYears,
+  carClass,
+  recentAccidents,
+  isHighSeason,
+) {
   const MINIMUM_DRIVING_AGE = 18;
   const MINIMUM_LICENSE_YEARS = 1;
   const MAXIMUM_RENTAL_PRICE = 1000;
-  
+
   let rentalPrice = driverAge;
 
   if (driverAge < MINIMUM_DRIVING_AGE) {
