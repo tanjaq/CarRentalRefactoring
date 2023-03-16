@@ -2,15 +2,15 @@ const http = require('http')
 const qs = require('querystring')
 const rental = require('./rentalPrice')
 
-const server = http.createServer(function(request, response) {
-    console.dir(request.param)
+const server = http.createServer(function (request, response) {
+  console.dir(request.param)
 
-    if (request.method == 'POST') {
-        console.log('POST')
-        var body = ''
-        request.on('data', function(data) {
-            body += data
-        })
+  if (request.method == 'POST') {
+    console.log('POST')
+    var body = ''
+    request.on('data', function (data) {
+      body += data
+    })
 
         request.on('end', function() {
             const post = qs.parse(body)
@@ -24,7 +24,7 @@ const server = http.createServer(function(request, response) {
         var html = `
             <html>
                 <body>
-                    <form id="calcForm" method="post" action="http://localhost:3000">Driver: <br>
+                    <form id="calcForm" method="post" action="http://localhost:3001">Driver: <br>
                         <input type="number" name="age"/>
                         <label for="html">Your age?</label><br>
                         <input type="number" name="licenceYears" />
@@ -51,10 +51,12 @@ const server = http.createServer(function(request, response) {
             updatedVal = true;
         }
         return updatedVal;
-    }
-})
 
-const port = 3000
-const host = '127.0.0.1'
+      }
+})
+const port = 3001
+const host = 'localhost'
 server.listen(port, host)
-console.log(`Listening at http://${host}:${port}`)
+
+
+console.log(`Listening at http://${host}:${port}`);
