@@ -1,93 +1,70 @@
-function calculateRentalPrice(age, licence, clazz, hasCausedAccidents, hasParticipatedInAccidents, isHighSeason) {
+function isDriverEligible(age, carClass) {
+  if (age < 18) {
+    return false;
+  }
+  if (age <= 21 && carClass > 2) {
+    return false;
+  }
+  return true;
+}
+
+function isLicenseValid(licenseYears) {
+  if (licenseYears < 1) {
+    return false;
+  }
+  return true;
+}
+
+
+function isAccidentProne(hasAccident, hasParticipatedAccident, age) {
+  if (hasAccident || (hasParticipatedAccident && age < 30)) {
+    return true;
+  }
+  return false;
+}
+
+function calculateRentalPrice(age, licenseYears, carClass, hasAccident, hasParticipatedAccident, isHighSeason) {
+  const Eligible = isDriverEligible(age, carClass);
+  const validLicense = isLicenseValid(licenseYears);
+  const AccidentProne = isAccidentProne(hasAccident, hasParticipatedAccident, age);
+  
+  if (!Eligible) {
+    return "Driver is not eligible to rent a car";
+  }
+  
+  if (!validLicense) {
+    return "Driver must hold a driving license for at least one year. Cannot rent a car!";
+  }
+  if(!AccidentProne)
+  {
+    return "It's heartening to see that there are still good people in the world.";
+  }
+  
+  
   let rentalPrice = age;
-
-  if (isDriverTooYoung(age)) {
-    return { success: false, message: "Driver too young - cannot quote the price" };
+  
+  if (carClass >= 4 && age <= 25 && isHighSeason) {
+    rentalPrice *= 2;
   }
-
-  if (isClassRestrictedForYoungDrivers(age, clazz)) {
-    return { success: false, message: "Drivers 21 y/o or less can only rent Class 1 vehicles" };
+  
+  if (licenseYears < 3) {
+    rentalPrice *= 1.3;
   }
-
-  if (isHighSeasonPriceApplicable(age, clazz, isHighSeason)) {
-    rentalPrice = applyHighSeasonPrice(rentalPrice);
+  
+  if (isAccidentProne) {
+    rentalPrice += 15;
   }
-
-  if (isLicenceDurationNotEnough(licence)) {
-    return { success: false, message: "Driver must hold driving licence at least for one year. Can not rent a car!" };
+  
+  if (rentalPrice > 1000) {
+    rentalPrice = 1000;
   }
-
-  rentalPrice = applyLicenceDurationDiscount(rentalPrice, licence);
-
-  rentalPrice = applyAccidentSurcharge(rentalPrice, age, hasCausedAccidents, hasParticipatedInAccidents);
-
-  rentalPrice = applyRentalPriceLimit(rentalPrice);
-
-  return { success: true, message: "Success", result: rentalPrice };
-}
-
-// Age functions
-function isDriverTooYoung(age) {
-  return age < 18;
-}
-
-function isClassRestrictedForYoungDrivers(age, clazz) {
-  return age <= 21 && clazz > 2;
-}
-
-function isHighSeasonPriceApplicable(age, clazz, isHighSeason) {
-  return clazz >= 4 && age <= 25 && isHighSeason;
-}
-
-function applyHighSeasonPrice(rentalPrice) {
-  return rentalPrice * 2;
-}
-
-// Licence functions
-function isLicenceDurationNotEnough(licence) {
-  return licence < 1;
-}
-
-function isLicenceDurationLessThanThreeYears(licence) {
-  return licence < 3;
-}
-
-function applyLicenceDurationDiscount(rentalPrice, licence) {
-  if (isLicenceDurationLessThanThreeYears(licence)) {
-    return rentalPrice * 1.3;
-  }
+  
   return rentalPrice;
 }
 
-// Accident functions
-function hasCausedAccidentsForYoungDriver(age, hasCausedAccidents) {
-  return hasCausedAccidents && age < 30;
-}
-
-function hasParticipatedInAccidentsF(age, hasParticipatedInAccidents) {
-  return hasParticipatedInAccidents && age > 30;
-}
-
-function applyAccidentSurcharge(rentalPrice, age, hasCausedAccidents, hasParticipatedInAccidents) {
-  if (hasCausedAccidentsForYoungDriver(age, hasCausedAccidents)) {
-    return rentalPrice + 15;
-  }
-  if (hasParticipatedInAccidentsF(age, hasParticipatedInAccidents)) {
-    return rentalPrice - 10;
-  }
-  return rentalPrice;
-}
-
-// Rental price limit
-function isRentalPriceExceededMaxValue(rentalPrice) {
-  return rentalPrice > 1000;
-}
-
-function applyRentalPriceLimit(rentalPrice) {
-  if (isRentalPriceExceededMaxValue(rentalPrice)) {
-    return 1000;
-  }
-  return rentalPrice;
-}
-
-module.exports = { calculateRentalPrice };
+module.exports = {
+  calculateRentalPrice: calculateRentalPrice,
+  isDriverEligible: isDriverEligible,
+  isLicenseValid: isLicenseValid,
+  isAccidentProne: isAccidentProne
+};
