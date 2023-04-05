@@ -1,0 +1,23 @@
+{
+  "name": "carrentalrefactoring",
+  "version": "1.0.0",
+  "description": "The task is to refactor the program code so that it meets clean code standards and follows all business requirements.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmadMuhhamedsin/CarRentalRefactoring.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmadMuhhamedsin/CarRentalRefactoring/issues"
+  },
+  "homepage": "https://github.com/AhmadMuhhamedsin/CarRentalRefactoring#readme",
+  "devDependencies": {
+    "eslint": "^8.37.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
