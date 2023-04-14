@@ -1,21 +1,21 @@
 // age - age of driver
 // licence - number of full years person holds driving licence
-// clazz - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
+// size - class of the car from 1 (smallest) to 5 (largest) that person wishes to rent
 // acc - has s/he caused any accidents within last year
 // acc2 - has s/he participated (but not caused) in any accidents within last year
 // season - if it is high season or not
-function price(age, licence, clazz, acc, acc2, season) {
+function price(age, licence, size, acc, season) {
 
     if (age < 18)
     {
       return "Driver too young - cannot quote the price";
     }
-    if (age <= 21 && clazz > 2)
+    if (age <= 21 && size > 2)
     {
         return "Drivers 21 y/o or less can only rent Class 1 vehicles";
     }
     var rentalprice = age;
-    if (clazz >= 4 && age <= 25 && season !== false)
+    if (size >= 4 && age <= 25 && season !== false)
     {
       rentalprice = rentalprice * 2;
     }
