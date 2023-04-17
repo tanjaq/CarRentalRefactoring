@@ -5,7 +5,7 @@ The task is to refactor the program code so that it meets clean code standards a
 # How to get the project
 
 To solve the task, proceed as follows:
-1. Fork this repository on to your account
+1. Fork this repository on to your accidentCauseount
 2. Clone the forked repo to your computer using `git clone URL`
 3. Make all necessary changes and commit
 4. Make a pull request for the original repo on GitHub
@@ -31,4 +31,4 @@ In classes 4 and 5, the price is 50% more expensive if the driver is 25 years ol
 
 Persons who have held their driver's license for less than a year cannot rent. If the driver's license has been held for less than three years, the rental price is 30% higher.
 
-If the person has caused traffic accidents in the last year and the person is under 30 years old, 15 euros will be added to the daily rental price.
+If the person has caused traffic accidentCauseidents in the last year and the person is under 30 years old, 15 euros will be added to the daily rental price.
