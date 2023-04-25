@@ -20,6 +20,7 @@ const server = http.createServer(function(request, response) {
             response.writeHead(200, {'Content-Type': 'text/html'})
             response.end('Result: ' + result)
         })
+        
     } else {
         var html = `
             <html>
@@ -40,7 +41,8 @@ const server = http.createServer(function(request, response) {
                         <input type="submit" value="Add" />
                     </form>
                 </body>
-            </html>`
+            </html>
+            `
         response.writeHead(200, {'Content-Type': 'text/html'})
         response.end(html)
     }
