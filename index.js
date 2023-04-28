@@ -1,6 +1,6 @@
 const http = require('http')
 const qs = require('querystring')
-const rental = require('./rentalPrice')
+const calculator = require('./rentalPrice')
 
 const server = http.createServer(function (request, response) {
     console.dir(request.param)
@@ -15,7 +15,7 @@ const server = http.createServer(function (request, response) {
         request.on('end', function () {
             const post = qs.parse(body)
             console.log(post);
-            const result = rental.price(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
+            const result = calculator.calculatePrice(Number(post.age), Number(post.licence), Number(post.clazz), parseBool(post.acc), parseBool(post.acc2), parseBool(post.season))
             console.log(result);
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end('Result: ' + result)

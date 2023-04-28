@@ -4,7 +4,7 @@
 // acc - has s/he caused any accidents within last year
 // acc2 - has s/he participated (but not caused) in any accidents within last year
 // season - if it is high season or not
-function price(age, licence, clazz, acc, acc2, season) {
+function calculatePrice(age, licence, clazz, acc, acc2, season) {
 
     if (age < 18) {
         return "Driver too young - cannot quote the price";
@@ -30,4 +30,5 @@ function price(age, licence, clazz, acc, acc2, season) {
     }
     return rentalprice;
 }
-exports.price = price;
+
+exports.calculatePrice = calculatePrice;
